@@ -177,7 +177,7 @@ function importerFournisseur(event){
 
             const rows =
             XLSX.utils.sheet_to_json(sheet);
-alert(JSON.stringify(rows[0]));
+
             Commande[nomFeuille] = [];
 
             rows.forEach(row => {
@@ -1040,55 +1040,7 @@ Livré
 
     `;
 
-  liste.forEach(produit => {
-
-    const total =
-    produit.lignes.reduce(
-        (s,l) => s + l.commande,
-        0
-    );
-
-    html += `
-
-    <div style="
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    ">
-
-        <div style="
-        font-weight:bold;
-        ">
-        ${produit.code} - ${produit.article}
-        </div>
-
-        ${produit.lignes.map(l => `
-        <div style="
-        margin-left:15px;
-        margin-top:3px;
-        ">
-
-        ${l.onglet}
-
-        : ${l.commande}
-
-        </div>
-        `).join("")}
-
-        <div style="
-        font-weight:bold;
-        margin-top:5px;
-        color:#fd7e14;
-        ">
-
-        Total : ${total}
-
-        </div>
-
-    </div>
-
-    `;
-
-});
+ liste.forEach(produit => {
     html += `
 
     <br>
@@ -1138,7 +1090,8 @@ function toggleCommande(){
         )
     );
 
-    creerOnglets();
+  creerOnglets();
+afficherFournisseur();
 
 }
 function toggleLivree(){
