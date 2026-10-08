@@ -1,4 +1,4 @@
-alert("3");
+alert("5");
 let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
@@ -81,7 +81,27 @@ function creerOnglets(){
         `;
 
     });
+const fournisseurs =
+getFournisseurs();
 
+Object.keys(fournisseurs)
+.forEach(fournisseur => {
+
+    html += `
+    <button
+    class="tab"
+    style="
+    background:#fd7e14;
+    color:white;
+    "
+    onclick="ouvrirFournisseur('${fournisseur}')">
+
+    📦 ${fournisseur}
+
+    </button>
+    `;
+
+});
     document
     .getElementById("tabs")
     .innerHTML = html;
@@ -239,7 +259,15 @@ function afficherOnglets(){
 
     modeOnglets = true;
 
-    afficherArticle();
+    creerOnglets();
+
+    document
+    .getElementById("tabs")
+    .style.display = "flex";
+
+    document
+    .getElementById("contenu")
+    .innerHTML = "";
 
 }
 
@@ -483,7 +511,7 @@ parseFloat(
     "CommandeHDLP",
     JSON.stringify(Commande)
 );
-
+creerOnglets();
 if(indexAvantRecherche !== null){
  
 currentIndex = indexAvantRecherche;
