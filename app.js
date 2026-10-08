@@ -1,4 +1,4 @@
-alert("1");
+alert("2");
 let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
@@ -21,6 +21,17 @@ if(sauvegarde){
 
     Commande =
     JSON.parse(sauvegarde);
+
+}
+    function supprimerAncienneSauvegarde(){
+
+    localStorage.removeItem(
+        "CommandeHDLP"
+    );
+
+    alert(
+        "Sauvegarde supprimée"
+    );
 
 }
 else{
