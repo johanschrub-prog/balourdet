@@ -1,4 +1,3 @@
-alert("2")
 let Commande = {};
 
 let currentTab = "";
