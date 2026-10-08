@@ -342,16 +342,13 @@ function valider(){
         .value || 0
     );
 
-    produit.Commande =
-    Number(
-        document
-        .getElementById("Commande")
-        .value || 0
-        .replace(",", ".")
-        if(
-    isNaN(produit.Commande)
-){
-    produit.Commande = 0;
+  produit.Commande =
+parseFloat(
+    document
+    .getElementById("Commande")
+    .value
+    .replace(",", ".")
+) || 0;
 }
     );
 
