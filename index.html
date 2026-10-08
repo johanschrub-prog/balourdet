@@ -105,7 +105,23 @@ id="fichierFournisseur"
 style="display:none"
 accept=".xlsx"
 onchange="importerFournisseur(event)">
- 
+ <button onclick="sauvegarderCommandeJSON()">
+💾 Sauvegarder
+</button>
+
+<input
+type="file"
+id="restoreCommande"
+style="display:none"
+onchange="restaurerCommandeJSON(event)">
+
+<button
+onclick="
+document.getElementById(
+'restoreCommande'
+).click()">
+📂 Reprendre
+</button>
 <button
 onclick="document.getElementById('fichierFournisseur').click()">
 📥 Import Liste Produit Fournisseur
