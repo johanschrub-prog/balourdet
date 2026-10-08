@@ -1,4 +1,4 @@
-alert("2");
+alert("1");
 let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
@@ -39,7 +39,17 @@ else{
     afficherArticle();
 
 }
+function supprimerAncienneSauvegarde(){
 
+    localStorage.removeItem(
+        "CommandeHDLP"
+    );
+
+    alert(
+        "Sauvegarde supprimée"
+    );
+
+}
 function creerOnglets(){
 
     let html = "";
