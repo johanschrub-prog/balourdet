@@ -1,4 +1,4 @@
-alert("10")
+alert("1")
 let Commande = {};
 
 let currentTab = "";
@@ -488,11 +488,13 @@ rows.map((r,i)=>({
     id:
     crypto.randomUUID(),
 
-    ordre:
-    Number(
-        r.ORDRE ||
-        i + 1
-    ),
+ ordre:
+Number(
+    r.ORDRE ??
+    r.Ordre ??
+    r["ORDRE "] ??
+    i + 1
+),
 
     code:
     String(
