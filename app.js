@@ -27,52 +27,45 @@ async function charger(){
         sauvegarde.trim() !== ""
     ){
 
-        try{
-
-            Commande =
-            JSON.parse(sauvegarde);
-
-        }
-        catch(err){
-
-            console.error(err);
-
-            localStorage.removeItem(
-                "CommandeHDLP"
-            );
-
-            Commande = {};
-
-        }
-
-    }
-    else{
-
-        const r =
-        await fetch("Commande.json");
-
         Commande =
-        await r.json();
+        JSON.parse(sauvegarde);
 
-    }
+        Object.keys(Commande).forEach(onglet => {
 
-    if(
-        Object.keys(Commande).length === 0
-    ){
+            Commande[onglet].forEach(produit => {
+
+                produit.Commande =
+                Number(
+                    produit.Commande || 0
+                );
+
+                produit.Stock =
+                Number(
+                    produit.Stock || 0
+                );
+
+            });
+
+        });
+
+        currentTab =
+        Object.keys(Commande)[0];
+
+        creerOnglets();
+
+        afficherArticle();
 
         return;
 
     }
 
-    currentTab =
-    Object.keys(Commande)[0];
+    Commande = {};
 
     creerOnglets();
 
-    afficherArticle();
+    afficherOnglets();
 
 }
-
 function creerOnglets(){
 
     let html = "";
