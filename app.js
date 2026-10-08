@@ -26,7 +26,19 @@ async function charger(){
 
         Commande =
         JSON.parse(sauvegarde);
+Object.keys(Commande).forEach(onglet => {
 
+    Commande[onglet].forEach(produit => {
+
+        produit.Commande =
+        Number(produit.Commande || 0);
+
+        produit.Stock =
+        Number(produit.Stock || 0);
+
+    });
+
+});
     }
     else{
 
@@ -42,7 +54,9 @@ async function charger(){
     Object.keys(Commande)[0];
 
     creerOnglets();
-
+console.log(
+    getFournisseurs()
+);
     afficherArticle();
 
 }
@@ -257,7 +271,7 @@ alert(
         Object.keys(Commande)[0];
 
         currentIndex = 0;
-
+modeOnglets = true;
         creerOnglets();
 
         afficherArticle();
