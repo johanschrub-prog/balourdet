@@ -1,4 +1,4 @@
-alert("6")
+alert("10")
 let Commande = {};
 
 let currentTab = "";
@@ -482,51 +482,55 @@ function importerExcel(event){
                 sheet
             );
 
-            Commande[feuille] =
-            rows.map((r,i)=>({
+           Commande[feuille] =
+rows.map((r,i)=>({
 
-                id:
-                crypto.randomUUID(),
+    id:
+    crypto.randomUUID(),
 
-                ordre:
-                Number(
-                    r.ORDRE ||
-                    i + 1
-                ),
+    ordre:
+    Number(
+        r.ORDRE ||
+        i + 1
+    ),
 
-                code:
-                String(
-                    r.NA || ""
-                ),
+    code:
+    String(
+        r.NA || ""
+    ),
 
-                article:
-                String(
-                    r.ARTICLE || ""
-                ),
+    article:
+    String(
+        r.ARTICLE || ""
+    ),
 
-                fournisseur:
-                String(
-                    r.FOURNISSEUR || ""
-                ),
+    fournisseur:
+    String(
+        r.FOURNISSEUR || ""
+    ),
 
-                conditionnement:
-                String(
-                    r.CONDITIONNEMENT || ""
-                ),
+    conditionnement:
+    String(
+        r.CONDITIONNEMENT || ""
+    ),
 
-                Stock:
-                Number(
-                    r.STOCK || 0
-                ),
+    Stock:
+    Number(
+        r.STOCK || 0
+    ),
 
-                Commande:
-                Number(
-                    r.COMMANDE || 0
-                )
+    Commande:
+    Number(
+        r.COMMANDE || 0
+    )
 
-            }));
+}))
 
-        });
+.sort((a,b)=>
+
+    a.ordre - b.ordre
+
+);
 
         currentTab =
         Object.keys(Commande)[0];
