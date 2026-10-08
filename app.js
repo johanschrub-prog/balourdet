@@ -285,10 +285,7 @@ String(
 
         });
 
-        localStorage.setItem(
-            "CommandeHDLP",
-            JSON.stringify(Commande)
-        );
+      
 alert(
     "Sauvegarde OK : " +
     Object.keys(Commande).length
@@ -607,10 +604,7 @@ parseFloat(
     .replace(",", ".")
 ) || 0;
 
-   localStorage.setItem(
-    "CommandeHDLP",
-    JSON.stringify(Commande)
-);
+
 creerOnglets();
 if(indexAvantRecherche !== null){
  
@@ -742,10 +736,7 @@ function remiseAZero(){
 
     });
 
-    localStorage.setItem(
-        "CommandeHDLP",
-        JSON.stringify(Commande)
-    );
+  
 
     afficherArticle();
 
@@ -912,12 +903,7 @@ function selectionProduitAssociation(id){
                     codeBarreAAssocier
                 );
 
-                localStorage.setItem(
-                    "CommandeHDLP",
-                    JSON.stringify(
-                        Commande
-                    )
-                );
+             
 
                 alert(
                     "Code-barres associé"
@@ -1120,11 +1106,7 @@ console.log(
 
     });
 
-    localStorage.setItem(
-        "CommandeHDLP",
-        JSON.stringify(Commande)
-    );
-
+ 
     fournisseurActif = null;
 
     creerOnglets();
