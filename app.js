@@ -66,6 +66,29 @@ async function charger(){
     afficherOnglets();
 
 }
+function sauvegarderCommande(){
+
+    const sauvegarde = {};
+
+    Object.keys(Commande)
+    .forEach(onglet => {
+
+        sauvegarde[onglet] =
+        Commande[onglet].map(produit => ({
+
+            id: produit.id,
+
+            Stock: produit.Stock,
+
+            Commande: produit.Commande
+
+        }));
+
+    });
+
+  sauvegarderCommande();
+
+}
 function creerOnglets(){
 
     let html = "";
