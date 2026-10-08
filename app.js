@@ -1,4 +1,4 @@
-alert("1")
+alert("2")
 let statutFournisseurs =
 JSON.parse(
     localStorage.getItem(
@@ -17,18 +17,33 @@ let produitSelectionne = null;
 
 async function charger(){
 
-    const r =
-    await fetch("balourdet.json");
-
     const sauvegarde =
-localStorage.getItem(
-"CommandeHDLP"
-);
+    localStorage.getItem(
+        "CommandeHDLP"
+    );
 
-if(sauvegarde){
+    if(sauvegarde){
 
-    Commande =
-    JSON.parse(sauvegarde);
+        Commande =
+        JSON.parse(sauvegarde);
+
+    }
+    else{
+
+        const r =
+        await fetch("balourdet.json");
+
+        Commande =
+        await r.json();
+
+    }
+
+    currentTab =
+    Object.keys(Commande)[0];
+
+    creerOnglets();
+
+    afficherArticle();
 
 }
 
@@ -248,7 +263,10 @@ String(
             "CommandeHDLP",
             JSON.stringify(Commande)
         );
-
+alert(
+    "Sauvegarde OK : " +
+    Object.keys(Commande).length
+);
         currentTab =
         Object.keys(Commande)[0];
 
