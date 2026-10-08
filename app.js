@@ -480,6 +480,9 @@ function importerExcel(event){
             const rows =
 XLSX.utils.sheet_to_json(sheet);
             console.log(rows[0]);
+console.log(rows[1]);
+console.log(rows[2]);
+        
 
            Commande[feuille] =
 rows.map((r,i)=>({
