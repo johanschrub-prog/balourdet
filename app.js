@@ -10,7 +10,7 @@ let produitSelectionne = null;
 async function charger(){
 
     const r =
-    await fetch("inventaire.json");
+    await fetch("balourdet.json");
 
     const sauvegarde =
 localStorage.getItem(
