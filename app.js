@@ -995,48 +995,46 @@ function afficherFournisseur(){
 
     const liste =
     Object.values(
-        fournisseurs[
-            fournisseurActif
-        ] || {}
+        fournisseurs[fournisseurActif] || {}
     );
 
     let html = `
 
     <div class="card">
 
-    <h2>
-    ${fournisseurActif}
-    </h2>
+        <h2>
+        ${fournisseurActif}
+        </h2>
 
-    <label>
-    <input
-    type="checkbox"
-    ${
-        statutFournisseurs[fournisseurActif]?.commandee
-        ? "checked"
-        : ""
-    }
-    onchange="toggleCommande()">
+        <label>
+        <input
+        type="checkbox"
+        ${
+            statutFournisseurs[fournisseurActif]?.commandee
+            ? "checked"
+            : ""
+        }
+        onchange="toggleCommande()">
 
-    Commandé
-    </label>
+        Commandé
+        </label>
 
-    <br>
+        <br>
 
-    <label>
-    <input
-    type="checkbox"
-    ${
-        statutFournisseurs[fournisseurActif]?.livree
-        ? "checked"
-        : ""
-    }
-    onchange="toggleLivree()">
+        <label>
+        <input
+        type="checkbox"
+        ${
+            statutFournisseurs[fournisseurActif]?.livree
+            ? "checked"
+            : ""
+        }
+        onchange="toggleLivree()">
 
-    Livré
-    </label>
+        Livré
+        </label>
 
-    <br><br>
+        <br><br>
 
     `;
 
@@ -1057,16 +1055,14 @@ function afficherFournisseur(){
             </div>
 
             ${produit.lignes.map(l => `
-            <div style="
-            margin-left:15px;
-            margin-top:3px;
-            ">
-
-            ${l.onglet}
-            :
-            <b>${l.commande}</b>
-
-            </div>
+                <div style="
+                margin-left:15px;
+                margin-top:3px;
+                ">
+                ${l.onglet}
+                :
+                <b>${l.commande}</b>
+                </div>
             `).join("")}
 
         </div>
@@ -1077,14 +1073,14 @@ function afficherFournisseur(){
 
     html += `
 
-    <br>
+        <br>
 
-    <button
-    onclick="viderCommandeFournisseur()">
+        <button
+        onclick="viderCommandeFournisseur()">
 
-    🧹 Saisie
+        🧹 Saisie
 
-    </button>
+        </button>
 
     </div>
 
