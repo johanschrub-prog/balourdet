@@ -350,7 +350,7 @@ display:block;
 font-weight:bold;
 margin-bottom:8px;
 ">
-Pièces
+Commande
 </label>
 
 <input
