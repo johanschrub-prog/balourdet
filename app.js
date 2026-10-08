@@ -92,11 +92,18 @@ function changerOnglet(onglet){
 
     currentIndex = 0;
 
+    Commande[currentTab]
+    .sort((a,b)=>
+        Number(a.ordre) -
+        Number(b.ordre)
+    );
+
     modeOnglets = false;
 
     afficherArticle();
 
 }
+
 
 function afficherOnglets(){
 
@@ -538,7 +545,8 @@ Number(
 
 .sort((a,b)=>
 
-    a.ordre - b.ordre
+    Number(a.ordre) -
+    Number(b.ordre)
 
 );
 });
