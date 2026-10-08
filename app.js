@@ -120,7 +120,12 @@ function importerFournisseur(event){
 
         Commande = {};
 
-        workbook.SheetNames.forEach(nomFeuille => {
+      workbook.SheetNames
+.filter(
+    nomFeuille =>
+    nomFeuille !== "Feuil1"
+)
+.forEach(nomFeuille => {
 
             const sheet =
             workbook.Sheets[nomFeuille];
