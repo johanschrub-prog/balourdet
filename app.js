@@ -1,4 +1,4 @@
-alert("6");
+alert("1");
 let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
@@ -461,27 +461,43 @@ function getFournisseurs(){
         Commande[onglet]
         .forEach(produit => {
 
-            if(
-                Number(produit.Commande || 0) > 0
-            ){
+            const quantite =
+            Number(
+                produit.Commande || 0
+            );
 
-                if(
-                    !fournisseurs[
-                        produit.fournisseur
-                    ]
-                ){
+            if(quantite <= 0) return;
 
-                    fournisseurs[
-                        produit.fournisseur
-                    ] = [];
+            const fournisseur =
+            produit.fournisseur || "";
 
-                }
+            if(!fournisseurs[fournisseur]){
 
-                fournisseurs[
-                    produit.fournisseur
-                ].push(produit);
+                fournisseurs[fournisseur] = {};
 
             }
+
+            const cle =
+            produit.code +
+            "|" +
+            produit.article;
+
+            if(
+                !fournisseurs[fournisseur][cle]
+            ){
+
+                fournisseurs[fournisseur][cle] = {
+
+                    code: produit.code,
+                    article: produit.article,
+                    commande: 0
+
+                };
+
+            }
+
+            fournisseurs[fournisseur][cle]
+            .commande += quantite;
 
         });
 
@@ -941,8 +957,12 @@ function afficherFournisseur(){
     const fournisseurs =
     getFournisseurs();
 
-    const liste =
-    fournisseurs[fournisseurActif];
+   const liste =
+Object.values(
+    fournisseurs[
+        fournisseurActif
+    ]
+);
 
     let html = `
 
@@ -974,10 +994,12 @@ function afficherFournisseur(){
 
         <div>
 
-        ${produit.article}
+       ${produit.code}
+-
+${produit.article}
 
-        :
-        ${produit.Commande}
+:
+${produit.commande}
 
         </div>
 
