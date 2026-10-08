@@ -154,7 +154,7 @@ function importerFournisseur(event){
 
             const rows =
             XLSX.utils.sheet_to_json(sheet);
-
+alert(JSON.stringify(rows[0]));
             Commande[nomFeuille] = [];
 
             rows.forEach(row => {
@@ -190,7 +190,11 @@ String(
 
 fournisseur:
 String(
-    row.FOURNISSEUR || ""
+    row.FOURNISSEUR ||
+    row["FOURNISSEUR "] ||
+    row.Fournisseur ||
+    row.fournisseur ||
+    ""
 ),
 
                     codesBarres: [],
@@ -1009,7 +1013,10 @@ function viderCommandeFournisseur(){
 
         Commande[onglet]
         .forEach(produit => {
-
+console.log(
+    fournisseurActif,
+    produit.fournisseur
+);
             if(
                 produit.fournisseur === fournisseurActif
             ){
