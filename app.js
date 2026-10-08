@@ -102,7 +102,13 @@ function afficherOnglets(){
 
     modeOnglets = true;
 
+    fournisseurActif = null;
+
     creerOnglets();
+
+    document
+    .getElementById("tabs")
+    .style.display = "flex";
 
     document
     .getElementById("contenu")
@@ -349,8 +355,7 @@ parseFloat(
     .value
     .replace(",", ".")
 ) || 0;
-}
-    );
+
 
     creerOnglets();
 
@@ -436,14 +441,7 @@ function getFournisseurs(){
 
 }
 
-function ouvrirFournisseur(fournisseur){
 
-    fournisseurActif =
-    fournisseur;
-
-    afficherFournisseur();
-
-}
 function importerExcel(event){
 
     const file =
@@ -610,12 +608,14 @@ function ouvrirFournisseur(fournisseur){
 
     fournisseurActif =
     fournisseur;
-
+modeOnglets = false;
     afficherFournisseur();
 
 }
 function afficherFournisseur(){
-
+document
+.getElementById("tabs")
+.style.display = "none";
     const fournisseurs =
     getFournisseurs();
 
