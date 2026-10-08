@@ -490,11 +490,12 @@ rows.map((r,i)=>({
     id:
     crypto.randomUUID(),
 
- ordre:
+ordre:
 Number(
+    r.ORDRE ??
+      r["ORDRE"] ??
   
-    r["ORDRE"] ??
-   
+    i + 1
 ),
 
     code:
