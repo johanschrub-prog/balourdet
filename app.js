@@ -191,7 +191,7 @@ String(
 fournisseur:
 String(
     row.FOURNISSEUR ||
-    row["FOURNISSEUR "] ||
+    row["FOURNISSEUR"] ||
     row.Fournisseur ||
     row.fournisseur ||
     ""
