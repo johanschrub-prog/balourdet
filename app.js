@@ -43,7 +43,7 @@ Object.keys(Commande).forEach(onglet => {
     else{
 
         const r =
-        await fetch("balourdet.json");
+      await fetch("Commande.json");
 
         Commande =
         await r.json();
@@ -1022,7 +1022,8 @@ async function charger(){
     else{
 
         const r =
-        await fetch("balourdet.json");
+        await fetch("Commande.json")
+`
 
         Commande =
         await r.json();
