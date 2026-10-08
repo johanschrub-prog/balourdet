@@ -163,14 +163,14 @@ function importerFournisseur(event){
 
                     codesBarres: [],
 
-                    paquets:
+                    Stock:
                         Number(
-                            row.PAQUET || 0
+                            row.STOCK || 0
                         ),
 
-                    pieces:
+                    Commande:
                         Number(
-                            row.PIECE || 0
+                            row.COMMANDE || 0
                         )
 
                 });
@@ -319,11 +319,11 @@ display:block;
 font-weight:bold;
 margin-bottom:8px;
 ">
-Paquets
+Stock
 </label>
 
 <input
-id="paquets"
+id="Stock"
 type="number"
 step="0.01"
 inputmode="decimal"
@@ -334,9 +334,9 @@ height:40px;
 font-size:22px;
 text-align:center;
 "
-value="${produit.paquets || ''}"
+value="${produit.Stock || ''}"
 onkeydown="if(event.key==='Enter'){
-document.getElementById('pieces').focus();
+document.getElementById('Commande').focus();
 }">
 </div>
 
@@ -354,7 +354,7 @@ Pièces
 </label>
 
 <input
-id="pieces"
+id="Commande"
 type="number"
 step="0.01"
 inputmode="decimal"
@@ -365,7 +365,7 @@ height:40px;
 font-size:22px;
 text-align:center;
 "
-value="${produit.pieces || ''}"
+value="${produit.Commande || ''}"
 onkeydown="if(event.key==='Enter'){
 valider();
 }">
@@ -413,18 +413,18 @@ function valider(){
     let produit =
     Commande[currentTab][currentIndex];
 
-  produit.paquets =
+  produit.Stock =
 parseFloat(
     document
-    .getElementById("paquets")
+    .getElementById("Stock")
     .value
     .replace(",", ".")
 ) || 0;
 
-produit.pieces =
+produit.Commande =
 parseFloat(
     document
-    .getElementById("pieces")
+    .getElementById("Commande")
     .value
     .replace(",", ".")
 ) || 0;
@@ -557,8 +557,8 @@ function remiseAZero(){
         Commande[onglet]
         .forEach(produit => {
 
-            produit.paquets = 0;
-            produit.pieces = 0;
+            produit.Stock = 0;
+            produit.Commande = 0;
 
         });
 
@@ -626,13 +626,13 @@ function suivant(){
             behavior:"instant"
         });
 
-        const champPieces =
-        document.getElementById("pieces");
+        const champCommande =
+        document.getElementById("Commande");
 
-        if(champPieces){
+        if(champCommande){
 
-            champPieces.focus();
-            champPieces.select();
+            champCommande.focus();
+            champCommande.select();
 
         }
 
@@ -869,11 +869,11 @@ isNaN(produit.code)
     ARTICLE:
     produit.article,
 
-    PAQUET:
-    produit.paquets || 0,
+    STOCK:
+    produit.Stock || 0,
 
-    PIECE:
-    produit.pieces || 0
+    COMMANDE:
+    produit.Commande || 0
 
 }));
 
