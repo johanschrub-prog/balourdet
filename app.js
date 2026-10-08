@@ -39,17 +39,7 @@ else{
     afficherArticle();
 
 }
-function supprimerAncienneSauvegarde(){
 
-    localStorage.removeItem(
-        "CommandeHDLP"
-    );
-
-    alert(
-        "Sauvegarde supprimée"
-    );
-
-}
 function creerOnglets(){
 
     let html = "";
