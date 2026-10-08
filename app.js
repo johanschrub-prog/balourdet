@@ -1,4 +1,4 @@
-alert("4")
+alert("5")
 let Commande = {};
 
 let currentTab = "";
@@ -347,6 +347,12 @@ function valider(){
         document
         .getElementById("Commande")
         .value || 0
+        .replace(",", ".")
+        if(
+    isNaN(produit.Commande)
+){
+    produit.Commande = 0;
+}
     );
 
     creerOnglets();
