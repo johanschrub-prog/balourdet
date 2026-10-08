@@ -1,4 +1,4 @@
-alert("3")
+alert("2")
 let Commande = {};
 
 let currentTab = "";
@@ -998,6 +998,7 @@ async function charger(){
     afficherOnglets();
 
 }
+charger();
 
 
 
