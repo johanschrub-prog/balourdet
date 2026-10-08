@@ -1,4 +1,4 @@
-alert("6")
+alert("8")
 let statutFournisseurs =
 JSON.parse(
     localStorage.getItem(
@@ -64,6 +64,82 @@ async function charger(){
     creerOnglets();
 
     afficherOnglets();
+
+}
+function sauvegarderCommandeJSON(){
+
+    const blob =
+    new Blob(
+
+        [
+            JSON.stringify(
+                Commande,
+                null,
+                2
+            )
+        ],
+
+        {
+            type:
+            "application/json"
+        }
+
+    );
+
+    const lien =
+    document.createElement("a");
+
+    const url =
+    URL.createObjectURL(blob);
+
+    lien.href = url;
+
+    lien.download =
+    "CommandeHDLP-" +
+    new Date()
+    .toISOString()
+    .slice(0,10)
+    + ".json";
+
+    lien.click();
+
+    URL.revokeObjectURL(url);
+
+}
+function restaurerCommandeJSON(event){
+
+    const file =
+    event.target.files[0];
+
+    if(!file) return;
+
+    const reader =
+    new FileReader();
+
+    reader.onload =
+    function(e){
+
+        Commande =
+        JSON.parse(
+            e.target.result
+        );
+
+        currentTab =
+        Object.keys(
+            Commande
+        )[0];
+
+        creerOnglets();
+
+        afficherOnglets();
+
+        alert(
+            "Commande restaurée"
+        );
+
+    };
+
+    reader.readAsText(file);
 
 }
 function sauvegarderCommande(){
