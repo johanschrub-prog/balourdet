@@ -3,7 +3,7 @@ let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
 let currentIndex = 0;
-let inventaire = {};
+let Commande = {};
 let codeBarreAAssocier = "";
 let produitSelectionne = null;
 
@@ -14,24 +14,24 @@ async function charger(){
 
     const sauvegarde =
 localStorage.getItem(
-"inventaireHDLP"
+"CommandeHDLP"
 );
 
 if(sauvegarde){
 
-    inventaire =
+    Commande =
     JSON.parse(sauvegarde);
 
 }
 else{
 
-    inventaire =
+    Commande =
     await r.json();
 
 }
 
     currentTab =
-    Object.keys(inventaire)[0];
+    Object.keys(Commande)[0];
 
     creerOnglets();
 
@@ -43,7 +43,7 @@ function creerOnglets(){
 
     let html = "";
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(cat => {
 
         const couleurFond =
@@ -118,7 +118,7 @@ function importerFournisseur(event){
             {type:"array"}
         );
 
-        inventaire = {};
+        Commande = {};
 
         workbook.SheetNames.forEach(nomFeuille => {
 
@@ -128,11 +128,11 @@ function importerFournisseur(event){
             const rows =
             XLSX.utils.sheet_to_json(sheet);
 
-            inventaire[nomFeuille] = [];
+            Commande[nomFeuille] = [];
 
             rows.forEach(row => {
 
-                inventaire[nomFeuille].push({
+                Commande[nomFeuille].push({
 
                     id: crypto.randomUUID(),
 
@@ -177,7 +177,7 @@ function importerFournisseur(event){
 
             });
 
-            inventaire[nomFeuille]
+            Commande[nomFeuille]
             .sort(
                 (a,b)=>
                 a.ordre-b.ordre
@@ -186,12 +186,12 @@ function importerFournisseur(event){
         });
 
         localStorage.setItem(
-            "inventaireHDLP",
-            JSON.stringify(inventaire)
+            "CommandeHDLP",
+            JSON.stringify(Commande)
         );
 
         currentTab =
-        Object.keys(inventaire)[0];
+        Object.keys(Commande)[0];
 
         currentIndex = 0;
 
@@ -212,7 +212,7 @@ if(modeOnglets){
         document.getElementById("tabs")
 .style.display = "none";
         alert(
-            Object.keys(inventaire).length +
+            Object.keys(Commande).length +
             " onglets importés"
         );
 
@@ -258,7 +258,7 @@ document
 .style.display = "none";
 
     const produit =
-    inventaire[currentTab][currentIndex];
+    Commande[currentTab][currentIndex];
 
     if(!produit) return;
 
@@ -411,7 +411,7 @@ onclick="suivant()">
 function valider(){
 
     let produit =
-    inventaire[currentTab][currentIndex];
+    Commande[currentTab][currentIndex];
 
   produit.paquets =
 parseFloat(
@@ -430,8 +430,8 @@ parseFloat(
 ) || 0;
 
    localStorage.setItem(
-    "inventaireHDLP",
-    JSON.stringify(inventaire)
+    "CommandeHDLP",
+    JSON.stringify(Commande)
 );
 
 if(indexAvantRecherche !== null){
@@ -489,10 +489,10 @@ function rechercherCodeBarre(codeBarre){
 
     let trouve = null;
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(onglet => {
 
-        inventaire[onglet]
+        Commande[onglet]
         .forEach(produit => {
 
             if(
@@ -519,7 +519,7 @@ function rechercherCodeBarre(codeBarre){
         trouve.onglet;
 
         currentIndex =
-        inventaire[
+        Commande[
             trouve.onglet
         ]
         .findIndex(
@@ -551,10 +551,10 @@ function remiseAZero(){
         return;
     }
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(onglet => {
 
-        inventaire[onglet]
+        Commande[onglet]
         .forEach(produit => {
 
             produit.paquets = 0;
@@ -565,14 +565,14 @@ function remiseAZero(){
     });
 
     localStorage.setItem(
-        "inventaireHDLP",
-        JSON.stringify(inventaire)
+        "CommandeHDLP",
+        JSON.stringify(Commande)
     );
 
     afficherArticle();
 
     alert(
-        "Inventaire remis à zéro"
+        "Commande remis à zéro"
     );
 
 }
@@ -612,7 +612,7 @@ function suivant(){
 
     if(
         currentIndex <
-        inventaire[currentTab].length - 1
+        Commande[currentTab].length - 1
     ){
         currentIndex++;
     }
@@ -651,10 +651,10 @@ function chercherProduitAssociation(){
 
     let html = "";
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(onglet => {
 
-        inventaire[onglet]
+        Commande[onglet]
         .forEach(produit => {
 
             if(
@@ -711,10 +711,10 @@ function precedent(){
 }
 function selectionProduitAssociation(id){
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(onglet => {
 
-        inventaire[onglet]
+        Commande[onglet]
         .forEach(produit => {
 
             if(
@@ -735,9 +735,9 @@ function selectionProduitAssociation(id){
                 );
 
                 localStorage.setItem(
-                    "inventaireHDLP",
+                    "CommandeHDLP",
                     JSON.stringify(
-                        inventaire
+                        Commande
                     )
                 );
 
@@ -778,7 +778,7 @@ function rechercher(){
     }
 
     const resultats =
-    inventaire[currentTab]
+    Commande[currentTab]
     .filter(p =>
 
         p.article &&
@@ -824,7 +824,7 @@ function rechercher(){
 function selectionProduit(id){
 
     const index =
-    inventaire[currentTab]
+    Commande[currentTab]
     .findIndex(
         p => p.id === id
     );
@@ -851,11 +851,11 @@ function exportExcel(){
     const wb =
     XLSX.utils.book_new();
 
-    Object.keys(inventaire)
+    Object.keys(Commande)
     .forEach(onglet => {
 
        const lignes =
-inventaire[onglet]
+Commande[onglet]
 .map(produit => ({
 
     ORDRE:
@@ -894,7 +894,7 @@ isNaN(produit.code)
     new Date();
 
     const fichier =
-    "inventaire-hdlp-" +
+    "Commande-hdlp-" +
     d.getFullYear() +
     "-" +
     String(
