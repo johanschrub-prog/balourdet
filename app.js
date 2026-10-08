@@ -479,9 +479,13 @@ function importerExcel(event){
 
             const rows =
 XLSX.utils.sheet_to_json(sheet);
-            console.log(rows[0]);
-console.log(rows[1]);
-console.log(rows[2]);
+alert(
+    JSON.stringify(
+        rows[0],
+        null,
+        2
+    )
+);
         
 
            Commande[feuille] =
@@ -495,7 +499,7 @@ Number(
     r.ORDRE ??
       r["ORDRE"] ??
   
-    i + 1
+    
 ),
 
     code:
