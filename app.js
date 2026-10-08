@@ -1,4 +1,4 @@
-
+alert("1");
 let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
