@@ -3,72 +3,68 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>INVENTAIRE HDLP</title>
+<title>Commande Fournisseur</title>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 <style>
 
 body{
-font-family:Segoe UI,sans-serif;
-margin:0;
-background:#f5f6f8;
-}
-
-header{
-background:#0a66ff;
-color:white;
-padding:15px;
-text-align:center;
+    font-family:Segoe UI,sans-serif;
+    margin:0;
+    background:#f5f6f8;
 }
 
 .tabs{
-display:flex;
-flex-wrap:wrap;
-gap:5px;
-padding:10px;
-background:white;
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    padding:10px;
+    background:white;
 }
 
 .tab{
-padding:8px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-.active{
-background:#0a66ff;
-color:white;
+    border:none;
+    border-radius:8px;
+    padding:8px;
+    cursor:pointer;
 }
 
 .toolbar{
-padding:10px;
-background:white;
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:10px;
+    background:white;
 }
 
 input{
-padding:10px;
+    padding:10px;
 }
 
 .card{
-background:white;
-margin:5px;
-padding:8px;
-border-radius:12px;
+    background:white;
+    margin:10px;
+    padding:15px;
+    border-radius:12px;
 }
 
 .nav{
-display:flex;
-gap:10px;
-margin-top:5px;
-margin-bottom:0;
-padding-bottom:0;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+#resultatsRecherche{
+    background:white;
+    border:1px solid #ddd;
+    border-radius:8px;
+    max-height:300px;
+    overflow:auto;
+    width:100%;
 }
 
 </style>
@@ -76,7 +72,6 @@ padding-bottom:0;
 </head>
 
 <body>
-
 
 <div id="tabs" class="tabs"></div>
 
@@ -86,125 +81,44 @@ padding-bottom:0;
 id="search"
 placeholder="Recherche"
 oninput="rechercher()">
-  <div
-    
-id="resultatsRecherche"
-style="
-background:white;
-margin-top:5px;
-border:1px solid #ddd;
-border-radius:8px;
-max-height:250px;
-overflow-y:auto;
-">
-</div>
-  
+
+<div id="resultatsRecherche"></div>
+
 <input
 type="file"
-id="fichierFournisseur"
+id="importExcel"
 style="display:none"
 accept=".xlsx"
-onchange="importerFournisseur(event)">
- <button onclick="sauvegarderCommandeJSON()">
+onchange="importerExcel(event)">
+
+<button
+onclick="document.getElementById('importExcel').click()">
+📥 Import Excel
+</button>
+
+<button onclick="sauvegarderJSON()">
 💾 Sauvegarder
 </button>
 
 <input
 type="file"
-id="restoreCommande"
+id="restoreJSON"
 style="display:none"
-onchange="restaurerCommandeJSON(event)">
+accept=".json"
+onchange="restaurerJSON(event)">
 
 <button
-onclick="
-document.getElementById(
-'restoreCommande'
-).click()">
+onclick="document.getElementById('restoreJSON').click()">
 📂 Reprendre
 </button>
-<button
-onclick="document.getElementById('fichierFournisseur').click()">
-📥 Import Liste Produit Fournisseur
-</button>
-  
-  <button onclick="scannerCodeBarre()">
-📷 Scanner
-</button>
- 
-<button onclick="exportExcel()">
-📤 Export Excel
-  </button>
-  
-  <button onclick="remiseAZero()">
-🔄 Remise à zéro
-</button>
-  
-  <button onclick="afficherOnglets()">
+
+<button onclick="afficherOnglets()">
 📋 Onglets
 </button>
-  
+
 </div>
-<div
-id="scannerZone"
-style="
-display:none;
-background:white;
-padding:10px;
-margin:10px;
-border-radius:12px;
-">
-<div id="reader"></div>
-</div>
+
 <div id="contenu"></div>
-
-<div
-id="scannerZone"
-style="
-display:none;
-background:white;
-padding:10px;
-margin:10px;
-border-radius:12px;
-">
-    <div id="reader"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
-<script src="https://unpkg.com/html5-qrcode"></script>
-<div id="fenetreAssociation"
-style="
-display:none;
-position:fixed;
-top:10%;
-left:5%;
-right:5%;
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 0 20px rgba(0,0,0,.3);
-z-index:9999;
-">
-
-<h3>Associer un code-barres</h3>
-
-<div id="codeInconnu"></div>
-
-<input
-id="rechercheProduit"
-placeholder="Recherche produit"
-oninput="chercherProduitAssociation()">
-
-<div
-id="listeProduits"
-style="
-margin-top:10px;
-max-height:300px;
-overflow:auto;
-">
-</div>
-
-</div>
 
 <script src="app.js"></script>
 
