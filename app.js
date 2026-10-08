@@ -1,4 +1,5 @@
-alert("1");
+alert("2");
+let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
@@ -162,10 +163,15 @@ function importerFournisseur(event){
                             row.CATEGORIE || ""
                         ),
 
-                    conditionnement:
-                        String(
-                            row.CONDITIONNEMENT || ""
-                        ),
+                   conditionnement:
+String(
+    row.CONDITIONNEMENT || ""
+),
+
+fournisseur:
+String(
+    row.FOURNISSEUR || ""
+),
 
                     codesBarres: [],
 
@@ -413,7 +419,45 @@ onclick="suivant()">
     `;
 
 }
+function getFournisseurs(){
 
+    const fournisseurs = {};
+
+    Object.keys(Commande)
+    .forEach(onglet => {
+
+        Commande[onglet]
+        .forEach(produit => {
+
+            if(
+                Number(produit.Commande || 0) > 0
+            ){
+
+                if(
+                    !fournisseurs[
+                        produit.fournisseur
+                    ]
+                ){
+
+                    fournisseurs[
+                        produit.fournisseur
+                    ] = [];
+
+                }
+
+                fournisseurs[
+                    produit.fournisseur
+                ].push(produit);
+
+            }
+
+        });
+
+    });
+
+    return fournisseurs;
+
+}
 function valider(){
 
     let produit =
@@ -850,6 +894,116 @@ indexAvantRecherche = currentIndex;
     .innerHTML = "";
 
     afficherArticle();
+
+}
+function ouvrirFournisseur(fournisseur){
+
+    fournisseurActif =
+    fournisseur;
+
+    afficherFournisseur();
+
+}
+function afficherFournisseur(){
+
+    const fournisseurs =
+    getFournisseurs();
+
+    const liste =
+    fournisseurs[fournisseurActif];
+
+    let html = `
+
+    <div class="card">
+
+    <h2>
+    ${fournisseurActif}
+    </h2>
+
+    <label>
+    <input type="checkbox">
+    Commandé
+    </label>
+
+    <br>
+
+    <label>
+    <input type="checkbox">
+    Livré
+    </label>
+
+    <br><br>
+
+    `;
+
+    liste.forEach(produit => {
+
+        html += `
+
+        <div>
+
+        ${produit.article}
+
+        :
+        ${produit.Commande}
+
+        </div>
+
+        `;
+
+    });
+
+    html += `
+
+    <br>
+
+    <button
+    onclick="viderCommandeFournisseur()">
+
+    🧹 Saisie
+
+    </button>
+
+    </div>
+
+    `;
+
+    document
+    .getElementById("contenu")
+    .innerHTML =
+    html;
+
+}
+function viderCommandeFournisseur(){
+
+    Object.keys(Commande)
+    .forEach(onglet => {
+
+        Commande[onglet]
+        .forEach(produit => {
+
+            if(
+                produit.fournisseur === fournisseurActif
+            ){
+
+                produit.Commande = 0;
+
+            }
+
+        });
+
+    });
+
+    localStorage.setItem(
+        "CommandeHDLP",
+        JSON.stringify(Commande)
+    );
+
+    creerOnglets();
+
+    document
+    .getElementById("contenu")
+    .innerHTML = "";
 
 }
 function exportExcel(){
