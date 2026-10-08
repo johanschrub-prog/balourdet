@@ -23,17 +23,7 @@ if(sauvegarde){
     JSON.parse(sauvegarde);
 
 }
-    function supprimerAncienneSauvegarde(){
 
-    localStorage.removeItem(
-        "CommandeHDLP"
-    );
-
-    alert(
-        "Sauvegarde supprimée"
-    );
-
-}
 else{
 
     Commande =
