@@ -1,4 +1,4 @@
-alert("5");
+alert("6");
 let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
