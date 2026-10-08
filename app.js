@@ -531,7 +531,7 @@ rows.map((r,i)=>({
     a.ordre - b.ordre
 
 );
-
+});
         currentTab =
         Object.keys(Commande)[0];
 
