@@ -484,11 +484,10 @@ XLSX.utils.sheet_to_json(
     {
         defval:""
     }
-);
-        
-console.log(
+    console.log(
     feuille,
     Object.keys(rows[0])
+
 );
            Commande[feuille] =
 rows.map((r,i)=>({
