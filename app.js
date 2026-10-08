@@ -1,4 +1,4 @@
-alert("6")
+alert("3")
 let Commande = {};
 
 let currentTab = "";
@@ -364,9 +364,11 @@ parseFloat(
 ) || 0;
 
 
-    creerOnglets();
+  sauvegarderLocal();
 
-    suivant();
+creerOnglets();
+
+suivant();
 
 }
 
@@ -550,6 +552,7 @@ ordre:
 
 );
 });
+        sauvegarderLocal();
         currentTab =
         Object.keys(Commande)[0];
 
@@ -784,7 +787,7 @@ function toggleCommande(){
         )
 
     );
-
+sauvegarderLocal();
     creerOnglets();
 
     afficherFournisseur();
@@ -820,7 +823,7 @@ function toggleLivree(){
         )
 
     );
-
+sauvegarderLocal();
     creerOnglets();
 
     afficherFournisseur();
@@ -846,7 +849,7 @@ function viderCommandeFournisseur(){
         });
 
     });
-
+sauvegarderLocal();
     fournisseurActif = null;
 
     creerOnglets();
@@ -953,7 +956,48 @@ function selectionProduit(id){
     afficherArticle();
 
 }
+function sauvegarderLocal(){
 
+    localStorage.setItem(
+        "CommandeHDLP",
+        JSON.stringify(Commande)
+    );
+
+}
+async function charger(){
+
+    const sauvegarde =
+    localStorage.getItem(
+        "CommandeHDLP"
+    );
+
+    if(sauvegarde){
+
+        Commande =
+        JSON.parse(sauvegarde);
+
+    }
+    else{
+
+        Commande = {};
+
+    }
+
+    if(
+        Object.keys(Commande)
+        .length === 0
+    ){
+        return;
+    }
+
+    currentTab =
+    Object.keys(Commande)[0];
+
+    creerOnglets();
+
+    afficherOnglets();
+
+}
 
 
 
