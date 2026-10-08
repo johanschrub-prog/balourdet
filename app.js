@@ -47,21 +47,7 @@ async function charger(){
 
 }
 
-else{
 
-    Commande =
-    await r.json();
-
-}
-
-    currentTab =
-    Object.keys(Commande)[0];
-
-    creerOnglets();
-
-    afficherArticle();
-
-}
 
 function creerOnglets(){
 
