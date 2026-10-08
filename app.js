@@ -238,9 +238,9 @@ if(modeOnglets){
     .getElementById("tabs")
     .style.display = "flex";
 
-    document
-    .querySelector(".toolbar")
-    .style.display = "none";
+   document
+.querySelector(".toolbar")
+.style.display = "flex";
 
     document
     .getElementById("contenu")
