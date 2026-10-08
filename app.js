@@ -1,4 +1,4 @@
-alert("1")
+alert("2")
 let statutFournisseurs =
 JSON.parse(
     localStorage.getItem(
