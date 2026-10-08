@@ -478,9 +478,8 @@ function importerExcel(event){
             if(!sheet) return;
 
             const rows =
-            XLSX.utils.sheet_to_json(
-                sheet
-            );
+XLSX.utils.sheet_to_json(sheet);
+            console.log(rows[0]);
 
            Commande[feuille] =
 rows.map((r,i)=>({
@@ -492,7 +491,7 @@ rows.map((r,i)=>({
 Number(
     r.ORDRE ??
     r.Ordre ??
-    r["ORDRE "] ??
+    r["ORDRE"] ??
     i + 1
 ),
 
