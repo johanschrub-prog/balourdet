@@ -22,31 +22,45 @@ async function charger(){
         "CommandeHDLP"
     );
 
-    if(sauvegarde){
+    if(
+        sauvegarde &&
+        sauvegarde.trim() !== ""
+    ){
 
-        Commande =
-        JSON.parse(sauvegarde);
-Object.keys(Commande).forEach(onglet => {
+        try{
 
-    Commande[onglet].forEach(produit => {
+            Commande =
+            JSON.parse(sauvegarde);
 
-        produit.Commande =
-        Number(produit.Commande || 0);
+        }
+        catch(err){
 
-        produit.Stock =
-        Number(produit.Stock || 0);
+            console.error(err);
 
-    });
+            localStorage.removeItem(
+                "CommandeHDLP"
+            );
 
-});
+            Commande = {};
+
+        }
+
     }
     else{
 
         const r =
-      await fetch("Commande.json");
+        await fetch("Commande.json");
 
         Commande =
         await r.json();
+
+    }
+
+    if(
+        Object.keys(Commande).length === 0
+    ){
+
+        return;
 
     }
 
@@ -54,14 +68,10 @@ Object.keys(Commande).forEach(onglet => {
     Object.keys(Commande)[0];
 
     creerOnglets();
-console.log(
-    getFournisseurs()
-);
+
     afficherArticle();
 
 }
-
-
 
 function creerOnglets(){
 
