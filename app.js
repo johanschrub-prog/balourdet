@@ -993,12 +993,12 @@ function afficherFournisseur(){
     const fournisseurs =
     getFournisseurs();
 
-   const liste =
-Object.values(
-    fournisseurs[
-        fournisseurActif
-    ]
-);
+    const liste =
+    Object.values(
+        fournisseurs[
+            fournisseurActif
+        ] || {}
+    );
 
     let html = `
 
@@ -1009,38 +1009,88 @@ Object.values(
     </h2>
 
     <label>
-   <input
-type="checkbox"
-${
-    statutFournisseurs[fournisseurActif]?.commandee
-    ? "checked"
-    : ""
-}
-onchange="toggleCommande()">
+    <input
+    type="checkbox"
+    ${
+        statutFournisseurs[fournisseurActif]?.commandee
+        ? "checked"
+        : ""
+    }
+    onchange="toggleCommande()">
 
-Commandé
+    Commandé
     </label>
 
     <br>
 
     <label>
-  <input
-type="checkbox"
-${
-    statutFournisseurs[fournisseurActif]?.livree
-    ? "checked"
-    : ""
-}
-onchange="toggleLivree()">
+    <input
+    type="checkbox"
+    ${
+        statutFournisseurs[fournisseurActif]?.livree
+        ? "checked"
+        : ""
+    }
+    onchange="toggleLivree()">
 
-Livré
+    Livré
     </label>
 
     <br><br>
 
     `;
 
- liste.forEach(produit => {
+    liste.forEach(produit => {
+
+        const total =
+        produit.lignes.reduce(
+            (s,l) => s + Number(l.commande),
+            0
+        );
+
+        html += `
+
+        <div style="
+        padding:10px;
+        border-bottom:1px solid #ddd;
+        ">
+
+            <div style="
+            font-size:16px;
+            font-weight:bold;
+            ">
+            ${produit.code} - ${produit.article}
+            </div>
+
+            ${produit.lignes.map(l => `
+            <div style="
+            margin-left:15px;
+            margin-top:3px;
+            ">
+
+            ${l.onglet}
+            :
+            <b>${l.commande}</b>
+
+            </div>
+            `).join("")}
+
+            <div style="
+            font-weight:bold;
+            margin-top:5px;
+            color:#fd7e14;
+            ">
+
+            Total : ${total}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
     html += `
 
     <br>
@@ -1058,8 +1108,7 @@ Livré
 
     document
     .getElementById("contenu")
-    .innerHTML =
-    html;
+    .innerHTML = html;
 
 }
 function toggleCommande(){
