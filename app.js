@@ -499,7 +499,7 @@ Number(
     r.ORDRE ??
       r["ORDRE"] ??
   
-    
+    i + 1
 ),
 
     code:
