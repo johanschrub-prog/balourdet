@@ -492,10 +492,9 @@ rows.map((r,i)=>({
 
  ordre:
 Number(
-    r.ORDRE ??
-    r.Ordre ??
+  
     r["ORDRE"] ??
-    i + 1
+   
 ),
 
     code:
