@@ -1,4 +1,4 @@
-alert("APP JS1");
+alert("APP JS2");
 let modeOnglets = true;
 let indexAvantRecherche = null;
 let currentTab = "";
