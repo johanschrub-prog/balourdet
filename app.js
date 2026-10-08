@@ -1,4 +1,4 @@
-alert("2");
+alert("1");
 let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
@@ -87,6 +87,11 @@ getFournisseurs();
 Object.keys(fournisseurs)
 .forEach(fournisseur => {
 
+    const nbLignes =
+    Object.keys(
+        fournisseurs[fournisseur]
+    ).length;
+
     html += `
     <button
     class="tab"
@@ -96,7 +101,7 @@ Object.keys(fournisseurs)
     "
     onclick="ouvrirFournisseur('${fournisseur}')">
 
-    📦 ${fournisseur}
+    📦 ${fournisseur} (${nbLignes})
 
     </button>
     `;
@@ -486,22 +491,27 @@ function getFournisseurs(){
                 !fournisseurs[fournisseur][cle]
             ){
 
-                fournisseurs[fournisseur][cle] = {
+            fournisseurs[fournisseur][cle] = {
 
-                    code: produit.code,
-                    article: produit.article,
-                    commande: 0
+    code: produit.code,
 
-                };
+    article: produit.article,
+
+    lignes: []
+
+};
 
             }
 
-            fournisseurs[fournisseur][cle]
-            .commande += quantite;
+          fournisseurs[fournisseur][cle]
+.lignes
+.push({
 
-        });
+    onglet: onglet,
 
-    });
+    commande: quantite
+
+});
 
     return fournisseurs;
 
@@ -996,11 +1006,34 @@ Object.values(
 
        ${produit.code}
 -
+<div style="
+padding:8px;
+border-bottom:1px solid #ddd;
+">
+
+<b>
+${produit.code}
+-
 ${produit.article}
+</b>
+
+<br>
+
+${produit.lignes.map(l => `
+<div style="
+margin-left:15px;
+">
+
+${l.onglet}
 
 :
-${produit.commande}
+<b>${l.commande}</b>
 
+</div>
+`).join("")}
+
+
+</div>
         </div>
 
         `;
