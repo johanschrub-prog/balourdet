@@ -1,4 +1,4 @@
-alert("2");
+alert("3");
 let fournisseurActif = null;
 let modeOnglets = true;
 let indexAvantRecherche = null;
@@ -999,11 +999,11 @@ function viderCommandeFournisseur(){
         JSON.stringify(Commande)
     );
 
+    fournisseurActif = null;
+
     creerOnglets();
 
-    document
-    .getElementById("contenu")
-    .innerHTML = "";
+    afficherOnglets();
 
 }
 function exportExcel(){
