@@ -1006,107 +1006,35 @@ function ouvrirFournisseur(fournisseur){
     afficherFournisseur();
 
 }
-function afficherFournisseur(){
+async function charger(){
 
-    const fournisseurs =
-    getFournisseurs();
-
-    const liste =
-    Object.values(
-        fournisseurs[fournisseurActif] || {}
+    const sauvegarde =
+    localStorage.getItem(
+        "CommandeHDLP"
     );
 
-    let html = `
+    if(sauvegarde){
 
-    <div class="card">
+        Commande =
+        JSON.parse(sauvegarde);
 
-        <h2>
-        ${fournisseurActif}
-        </h2>
+    }
+    else{
 
-        <label>
-        <input
-        type="checkbox"
-        ${
-            statutFournisseurs[fournisseurActif]?.commandee
-            ? "checked"
-            : ""
-        }
-        onchange="toggleCommande()">
+        const r =
+        await fetch("balourdet.json");
 
-        Commandé
-        </label>
+        Commande =
+        await r.json();
 
-        <br>
+    }
 
-        <label>
-        <input
-        type="checkbox"
-        ${
-            statutFournisseurs[fournisseurActif]?.livree
-            ? "checked"
-            : ""
-        }
-        onchange="toggleLivree()">
+    currentTab =
+    Object.keys(Commande)[0];
 
-        Livré
-        </label>
+    creerOnglets();
 
-        <br><br>
-
-    `;
-
-    liste.forEach(produit => {
-
-        html += `
-
-        <div style="
-        padding:10px;
-        border-bottom:1px solid #ddd;
-        ">
-
-            <div style="
-            font-weight:bold;
-            font-size:16px;
-            ">
-            ${produit.code} - ${produit.article}
-            </div>
-
-            ${produit.lignes.map(l => `
-                <div style="
-                margin-left:15px;
-                margin-top:3px;
-                ">
-                ${l.onglet}
-                :
-                <b>${l.commande}</b>
-                </div>
-            `).join("")}
-
-        </div>
-
-        `;
-
-    });
-
-    html += `
-
-        <br>
-
-        <button
-        onclick="viderCommandeFournisseur()">
-
-        🧹 Saisie
-
-        </button>
-
-    </div>
-
-    `;
-
-    document
-    .getElementById("contenu")
-    .innerHTML = html;
+    afficherArticle();
 
 }
 function toggleCommande(){
