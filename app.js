@@ -479,12 +479,12 @@ function importerExcel(event){
 
             const rows =
 XLSX.utils.sheet_to_json(sheet);
-alert(
-    JSON.stringify(
-        rows[0],
-        null,
-        2
-    )
+sheet_to_json(
+    sheet,
+    {
+       defval:""
+    }
+)
 );
         
 
