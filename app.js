@@ -1,4 +1,4 @@
-alert("3")
+alert("4")
 let Commande = {};
 
 let currentTab = "";
@@ -151,11 +151,11 @@ function afficherArticle(){
 
         <div style="
         text-align:center;
-        margin-bottom:5px;
+        margin-bottom:8px;
         ">
 
             <div style="
-            font-size:14px;
+            font-size:15px;
             font-weight:bold;
             color:${
                 currentTab.includes("RCLP")
@@ -180,13 +180,13 @@ function afficherArticle(){
         display:flex;
         justify-content:center;
         align-items:flex-start;
-        gap:12px;
-        margin-top:5px;
-        margin-bottom:5px;
+        gap:25px;
+        margin-top:8px;
+        margin-bottom:8px;
         ">
 
             <div style="
-            width:65px;
+            width:70px;
             text-align:center;
             ">
 
@@ -205,7 +205,7 @@ function afficherArticle(){
                 inputmode="decimal"
                 enterkeyhint="next"
                 style="
-                width:55px;
+                width:60px;
                 height:34px;
                 font-size:18px;
                 text-align:center;
@@ -214,16 +214,21 @@ function afficherArticle(){
                 onkeydown="
                 if(event.key==='Enter'){
                     document
-                    .getElementById(
-                        'Commande'
-                    )
+                    .getElementById('Commande')
                     .focus();
                 }">
 
             </div>
 
             <div style="
-            width:65px;
+            width:1px;
+            height:65px;
+            background:#dddddd;
+            ">
+            </div>
+
+            <div style="
+            width:70px;
             text-align:center;
             ">
 
@@ -242,7 +247,7 @@ function afficherArticle(){
                 inputmode="decimal"
                 enterkeyhint="go"
                 style="
-                width:55px;
+                width:60px;
                 height:34px;
                 font-size:18px;
                 text-align:center;
@@ -270,9 +275,7 @@ function afficherArticle(){
             width:48px;
             "
             onclick="precedent()">
-
             ◀
-
             </button>
 
             <button
@@ -281,9 +284,7 @@ function afficherArticle(){
             width:58px;
             "
             onclick="valider()">
-
             ✅
-
             </button>
 
             <button
@@ -292,9 +293,7 @@ function afficherArticle(){
             width:48px;
             "
             onclick="suivant()">
-
             ▶
-
             </button>
 
         </div>
