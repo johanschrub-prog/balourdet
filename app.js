@@ -504,12 +504,12 @@ rows.map((r,i)=>({
     crypto.randomUUID(),
 
 ordre:
-Number(
-    r.ORDRE ??
-      r["ORDRE"] ??
-  
-    i + 1
-),
+(
+    r.ORDRE === "" ||
+    r.ORDRE == null
+)
+? 999999
+: Number(r.ORDRE),
 
     code:
     String(
