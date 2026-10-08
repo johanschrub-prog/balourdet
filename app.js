@@ -474,7 +474,10 @@ function getFournisseurs(){
             if(quantite <= 0) return;
 
             const fournisseur =
-            produit.fournisseur || "";
+            (produit.fournisseur || "")
+            .trim();
+
+            if(!fournisseur) return;
 
             if(!fournisseurs[fournisseur]){
 
@@ -491,31 +494,36 @@ function getFournisseurs(){
                 !fournisseurs[fournisseur][cle]
             ){
 
-            fournisseurs[fournisseur][cle] = {
+                fournisseurs[fournisseur][cle] = {
 
-    code: produit.code,
+                    code: produit.code,
 
-    article: produit.article,
+                    article: produit.article,
 
-    lignes: []
+                    lignes: []
 
-};
+                };
 
             }
 
-          fournisseurs[fournisseur][cle]
-.lignes
-.push({
+            fournisseurs[fournisseur][cle]
+            .lignes
+            .push({
 
-    onglet: onglet,
+                onglet: onglet,
 
-    commande: quantite
+                commande: quantite
 
-});
+            });
+
+        });
+
+    });
 
     return fournisseurs;
 
 }
+
 function valider(){
 
     let produit =
