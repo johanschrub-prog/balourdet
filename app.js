@@ -1,4 +1,4 @@
-alert("5")
+alert("6")
 let Commande = {};
 
 let currentTab = "";
@@ -830,6 +830,105 @@ function viderCommandeFournisseur(){
     creerOnglets();
 
     afficherOnglets();
+
+}
+function rechercher(){
+
+    const texte =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase();
+
+    if(!texte){
+
+        document
+        .getElementById("resultatsRecherche")
+        .innerHTML = "";
+
+        return;
+
+    }
+
+    let liste = [];
+
+    if(
+        Commande[currentTab]
+    ){
+
+        liste =
+        Commande[currentTab];
+
+    }
+
+    const resultats =
+    liste.filter(p =>
+
+        (p.article || "")
+        .toLowerCase()
+        .includes(texte)
+
+        ||
+
+        (p.code || "")
+        .toLowerCase()
+        .includes(texte)
+
+    );
+
+    let html = "";
+
+    resultats.forEach(produit => {
+
+        html += `
+        <div
+        style="
+        padding:10px;
+        border-bottom:1px solid #ddd;
+        cursor:pointer;
+        "
+        onclick="
+        selectionProduit(
+        '${produit.id}'
+        )">
+
+        ${produit.code}
+        -
+        ${produit.article}
+
+        </div>
+        `;
+
+    });
+
+    document
+    .getElementById("resultatsRecherche")
+    .innerHTML = html;
+
+}
+function selectionProduit(id){
+
+    const index =
+    Commande[currentTab]
+    .findIndex(
+        p => p.id === id
+    );
+
+    if(index < 0) return;
+
+    currentIndex = index;
+
+    modeOnglets = false;
+
+    document
+    .getElementById("search")
+    .value = "";
+
+    document
+    .getElementById("resultatsRecherche")
+    .innerHTML = "";
+
+    afficherArticle();
 
 }
 
