@@ -1006,38 +1006,7 @@ function ouvrirFournisseur(fournisseur){
     afficherFournisseur();
 
 }
-async function charger(){
 
-    const sauvegarde =
-    localStorage.getItem(
-        "CommandeHDLP"
-    );
-
-    if(sauvegarde){
-
-        Commande =
-        JSON.parse(sauvegarde);
-
-    }
-    else{
-
-        const r =
-        await fetch("Commande.json")
-`
-
-        Commande =
-        await r.json();
-
-    }
-
-    currentTab =
-    Object.keys(Commande)[0];
-
-    creerOnglets();
-
-    afficherArticle();
-
-}
 function toggleCommande(){
 
     if(
