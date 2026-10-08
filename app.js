@@ -1,3 +1,10 @@
+alerte("1")
+let statutFournisseurs =
+JSON.parse(
+    localStorage.getItem(
+        "statutFournisseurs"
+    )
+) || {};
 
 let fournisseurActif = null;
 let modeOnglets = true;
@@ -96,8 +103,19 @@ Object.keys(fournisseurs)
     <button
     class="tab"
     style="
-    background:#fd7e14;
-    color:white;
+   background:${
+    statutFournisseurs[fournisseur]?.livree
+    ? "#dc3545"
+    : statutFournisseurs[fournisseur]?.commandee
+    ? "#fd7e14"
+    : "#ffe0b2"
+};
+
+color:${
+    statutFournisseurs[fournisseur]?.livree
+    ? "white"
+    : "black"
+};
     "
     onclick="ouvrirFournisseur('${fournisseur}')">
 
@@ -991,15 +1009,31 @@ Object.values(
     </h2>
 
     <label>
-    <input type="checkbox">
-    Commandé
+   <input
+type="checkbox"
+${
+    statutFournisseurs[fournisseurActif]?.commandee
+    ? "checked"
+    : ""
+}
+onchange="toggleCommande()">
+
+Commandé
     </label>
 
     <br>
 
     <label>
-    <input type="checkbox">
-    Livré
+  <input
+type="checkbox"
+${
+    statutFournisseurs[fournisseurActif]?.livree
+    ? "checked"
+    : ""
+}
+onchange="toggleLivree()">
+
+Livré
     </label>
 
     <br><br>
@@ -1074,6 +1108,68 @@ Object.values(
     .getElementById("contenu")
     .innerHTML =
     html;
+
+}
+function toggleCommande(){
+
+    if(
+        !statutFournisseurs[
+            fournisseurActif
+        ]
+    ){
+
+        statutFournisseurs[
+            fournisseurActif
+        ] = {};
+
+    }
+
+    statutFournisseurs[
+        fournisseurActif
+    ].commandee =
+    !statutFournisseurs[
+        fournisseurActif
+    ].commandee;
+
+    localStorage.setItem(
+        "statutFournisseurs",
+        JSON.stringify(
+            statutFournisseurs
+        )
+    );
+
+    creerOnglets();
+
+}
+function toggleLivree(){
+
+    if(
+        !statutFournisseurs[
+            fournisseurActif
+        ]
+    ){
+
+        statutFournisseurs[
+            fournisseurActif
+        ] = {};
+
+    }
+
+    statutFournisseurs[
+        fournisseurActif
+    ].livree =
+    !statutFournisseurs[
+        fournisseurActif
+    ].livree;
+
+    localStorage.setItem(
+        "statutFournisseurs",
+        JSON.stringify(
+            statutFournisseurs
+        )
+    );
+
+    creerOnglets();
 
 }
 function viderCommandeFournisseur(){
