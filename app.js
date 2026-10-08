@@ -1042,12 +1042,6 @@ function afficherFournisseur(){
 
     liste.forEach(produit => {
 
-        const total =
-        produit.lignes.reduce(
-            (s,l) => s + Number(l.commande),
-            0
-        );
-
         html += `
 
         <div style="
@@ -1056,8 +1050,8 @@ function afficherFournisseur(){
         ">
 
             <div style="
-            font-size:16px;
             font-weight:bold;
+            font-size:16px;
             ">
             ${produit.code} - ${produit.article}
             </div>
@@ -1074,16 +1068,6 @@ function afficherFournisseur(){
 
             </div>
             `).join("")}
-
-            <div style="
-            font-weight:bold;
-            margin-top:5px;
-            color:#fd7e14;
-            ">
-
-            Total : ${total}
-
-            </div>
 
         </div>
 
@@ -1171,7 +1155,8 @@ function toggleLivree(){
         )
     );
 
-    creerOnglets();
+   creerOnglets();
+afficherFournisseur();
 
 }
 function viderCommandeFournisseur(){
