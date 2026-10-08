@@ -1,4 +1,4 @@
-alert("2")
+alert("3")
 let Commande = {};
 
 let currentTab = "";
@@ -115,12 +115,28 @@ function afficherArticle(){
     if(modeOnglets){
 
         document
+        .getElementById("tabs")
+        .style.display = "flex";
+
+        document
+        .querySelector(".toolbar")
+        .style.display = "flex";
+
+        document
         .getElementById("contenu")
         .innerHTML = "";
 
         return;
 
     }
+
+    document
+    .querySelector(".toolbar")
+    .style.display = "flex";
+
+    document
+    .getElementById("tabs")
+    .style.display = "none";
 
     const produit =
     Commande[currentTab][currentIndex];
@@ -133,87 +149,161 @@ function afficherArticle(){
 
     <div class="card">
 
-    <div style="
-    text-align:center;
-    font-size:14px;
-    color:#666;
-    ">
-    ${currentTab}
-    </div>
+        <div style="
+        text-align:center;
+        margin-bottom:5px;
+        ">
 
-    <div style="
-    font-size:30px;
-    font-weight:bold;
-    text-align:center;
-    ">
-    ${produit.article}
-    </div>
+            <div style="
+            font-size:14px;
+            font-weight:bold;
+            color:${
+                currentTab.includes("RCLP")
+                ? "#fd7e14"
+                : "#0a66ff"
+            };
+            ">
+            ${currentTab}
+            </div>
 
-    <br>
-
-    <div style="
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    ">
-
-        <div>
-
-        Stock
-
-        <br>
-
-        <input
-        id="Stock"
-        type="number"
-        value="${
-            produit.Stock||''
-        }">
+            <div style="
+            font-size:30px;
+            font-weight:bold;
+            margin-top:2px;
+            ">
+            ${produit.article}
+            </div>
 
         </div>
 
-        <div>
+        <div style="
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        gap:12px;
+        margin-top:5px;
+        margin-bottom:5px;
+        ">
 
-        Commande
+            <div style="
+            width:65px;
+            text-align:center;
+            ">
 
-        <br>
+                <label style="
+                display:block;
+                font-weight:bold;
+                margin-bottom:6px;
+                ">
+                Stock
+                </label>
 
-        <input
-        id="Commande"
-        type="number"
-        value="${
-            produit.Commande||''
-        }">
+                <input
+                id="Stock"
+                type="number"
+                step="0.01"
+                inputmode="decimal"
+                enterkeyhint="next"
+                style="
+                width:55px;
+                height:34px;
+                font-size:18px;
+                text-align:center;
+                "
+                value="${produit.Stock || ''}"
+                onkeydown="
+                if(event.key==='Enter'){
+                    document
+                    .getElementById(
+                        'Commande'
+                    )
+                    .focus();
+                }">
+
+            </div>
+
+            <div style="
+            width:65px;
+            text-align:center;
+            ">
+
+                <label style="
+                display:block;
+                font-weight:bold;
+                margin-bottom:6px;
+                ">
+                Commande
+                </label>
+
+                <input
+                id="Commande"
+                type="number"
+                step="0.01"
+                inputmode="decimal"
+                enterkeyhint="go"
+                style="
+                width:55px;
+                height:34px;
+                font-size:18px;
+                text-align:center;
+                "
+                value="${produit.Commande || ''}"
+                onkeydown="
+                if(event.key==='Enter'){
+                    valider();
+                }">
+
+            </div>
 
         </div>
 
-    </div>
+        <div style="
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        margin-top:5px;
+        ">
 
-    <div class="nav">
+            <button
+            style="
+            height:38px;
+            width:48px;
+            "
+            onclick="precedent()">
 
-        <button
-        onclick="precedent()">
-        ◀
-        </button>
+            ◀
 
-        <button
-        onclick="valider()">
-        ✅
-        </button>
+            </button>
 
-        <button
-        onclick="suivant()">
-        ▶
-        </button>
+            <button
+            style="
+            height:38px;
+            width:58px;
+            "
+            onclick="valider()">
 
-    </div>
+            ✅
+
+            </button>
+
+            <button
+            style="
+            height:38px;
+            width:48px;
+            "
+            onclick="suivant()">
+
+            ▶
+
+            </button>
+
+        </div>
 
     </div>
 
     `;
 
 }
-
 function precedent(){
 
     if(currentIndex > 0){
