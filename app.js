@@ -478,14 +478,12 @@ function importerExcel(event){
             if(!sheet) return;
 
             const rows =
-XLSX.utils.sheet_to_json(sheet);
 sheet_to_json(
     sheet,
     {
        defval:""
     }
 )
-);
         
 
            Commande[feuille] =
