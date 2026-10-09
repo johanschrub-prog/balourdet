@@ -1,3 +1,4 @@
+alert("1")
 let Commande = {};
 
 let currentTab = "";
@@ -849,6 +850,16 @@ function viderCommandeFournisseur(){
 
     });
 sauvegarderLocal();
+    delete statutFournisseurs[
+    fournisseurActif
+];
+
+localStorage.setItem(
+    "statutFournisseurs",
+    JSON.stringify(
+        statutFournisseurs
+    )
+);
     fournisseurActif = null;
 
     creerOnglets();
