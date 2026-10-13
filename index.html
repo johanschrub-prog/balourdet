@@ -77,12 +77,23 @@ input{
 
 <div class="toolbar">
 
-<input
-id="search"
-placeholder="Recherche"
-oninput="rechercher()">
+&lt;div style="display:flex;gap:5px;align-items:center;"&gt;
 
-<div id="resultatsRecherche"></div>
+    &lt;input
+    id="search"
+    placeholder="Recherche"
+    oninput="rechercher()"
+    style="flex:1;"&gt;
+
+    &lt;button onclick="ouvrirAjoutArticle()"&gt;
+        ➕
+    &lt;/button&gt;
+
+&lt;/div&gt;
+
+&lt;br&gt;
+
+&lt;div id="resultatsRecherche"&gt;&lt;/div&gt;
 
 <input
 type="file"
@@ -121,6 +132,20 @@ onclick="document.getElementById('restoreJSON').click()">
 <div id="contenu"></div>
 
 <script src="app.js"></script>
+<div id="popupAjout" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;">
+    <div style="background:white;margin:20px;padding:15px;border-radius:12px;">
+        <h3>Nouvel article</h3>
+
+        <input id="newCode" placeholder="Code article" style="width:100%;margin-bottom:8px;">
+        <input id="newArticle" placeholder="Nom article" style="width:100%;margin-bottom:8px;">
+        <input id="newFournisseur" placeholder="Fournisseur" style="width:100%;margin-bottom:8px;">
+        <input id="newConditionnement" placeholder="Conditionnement" style="width:100%;margin-bottom:8px;">
+        <input id="newOrdre" type="number" placeholder="Ordre" style="width:100%;margin-bottom:8px;">
+
+        <button onclick="enregistrerArticle()">Enregistrer</button>
+        <button onclick="fermerAjoutArticle()">Annuler</button>
+    </div>
+</div>
 
 </body>
 </html>
