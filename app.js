@@ -965,6 +965,73 @@ function selectionProduit(id){
     afficherArticle();
 
 }
+function ouvrirAjoutArticle(){
+    document.getElementById("popupAjout").style.display = "block";
+}
+
+function fermerAjoutArticle(){
+
+    document.getElementById("popupAjout").style.display = "none";
+
+    document.getElementById("newCode").value = "";
+    document.getElementById("newArticle").value = "";
+    document.getElementById("newFournisseur").value = "";
+    document.getElementById("newConditionnement").value = "";
+    document.getElementById("newOrdre").value = "";
+}
+
+function enregistrerArticle(){
+
+    const article =
+        document.getElementById("newArticle").value.trim();
+
+    if(!article){
+        alert("Nom article obligatoire");
+        return;
+    }
+
+    const nouveau = {
+
+        id: crypto.randomUUID(),
+
+        code:
+            document.getElementById("newCode").value.trim(),
+
+        article:
+            article.toUpperCase(),
+
+        fournisseur:
+            document.getElementById("newFournisseur")
+            .value.trim()
+            .toUpperCase(),
+
+        conditionnement:
+            document.getElementById("newConditionnement")
+            .value.trim(),
+
+        ordre:
+            Number(
+                document.getElementById("newOrdre").value
+            ) || 999999,
+
+        Stock: 0,
+        Commande: 0
+    };
+
+    Commande[currentTab].push(nouveau);
+
+    Commande[currentTab].sort(
+        (a,b)=>(a.ordre||999999)-(b.ordre||999999)
+    );
+
+    sauvegarderLocal();
+
+    fermerAjoutArticle();
+
+    afficherOnglet(currentTab);
+
+    alert("Article ajouté");
+}
 function sauvegarderLocal(){
 
     localStorage.setItem(
