@@ -830,6 +830,13 @@ sauvegarderLocal();
 }
 function viderCommandeFournisseur(){
 
+    const receptions =
+    JSON.parse(
+        localStorage.getItem(
+            "commandeHDLP"
+        )
+    ) || [];
+
     Object.keys(Commande)
     .forEach(onglet => {
 
@@ -841,6 +848,34 @@ function viderCommandeFournisseur(){
                 fournisseurActif
             ){
 
+                const q =
+                Number(
+                    produit.Commande || 0
+                );
+
+                if(q > 0){
+
+                    receptions.push({
+
+                        date:
+                        new Date()
+                        .toLocaleString(),
+
+                        fournisseur:
+                        fournisseurActif,
+
+                        code:
+                        produit.code,
+
+                        article:
+                        produit.article,
+
+                        quantite:q
+
+                    });
+
+                }
+
                 produit.Commande = 0;
 
             }
@@ -848,22 +883,42 @@ function viderCommandeFournisseur(){
         });
 
     });
-sauvegarderLocal();
-    delete statutFournisseurs[
-    fournisseurActif
-];
 
-localStorage.setItem(
-    "statutFournisseurs",
-    JSON.stringify(
-        statutFournisseurs
-    )
-);
+    localStorage.setItem(
+
+        "commandeHDLP",
+
+        JSON.stringify(
+            receptions
+        )
+
+    );
+
+    sauvegarderLocal();
+
+    delete statutFournisseurs[
+        fournisseurActif
+    ];
+
+    localStorage.setItem(
+
+        "statutFournisseurs",
+
+        JSON.stringify(
+            statutFournisseurs
+        )
+
+    );
+
     fournisseurActif = null;
 
     creerOnglets();
 
     afficherOnglets();
+
+    alert(
+        "Réception fournisseur enregistrée ✅"
+    );
 
 }
 function rechercher(){
